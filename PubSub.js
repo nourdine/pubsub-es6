@@ -17,37 +17,37 @@ class PubSub {
     }
 
     /**
-     * @param event String
+     * @param channel String
      * @param callback Function 
      */
-    subscribe(event, callback) {
-        if (!this._subscribers.get(event)) {
-            this._subscribers.set(event, []);
+    subscribe(channel, callback) {
+        if (!this._subscribers.get(channel)) {
+            this._subscribers.set(channel, []);
         }
-        this._subscribers.get(event).push(callback);
+        this._subscribers.get(channel).push(callback);
     }
 
     /**
-     * @param event String
+     * @param channel String
      * @param callback Function 
      */
-    unsubscribe(event, callback) {
-        var cbs = this._subscribers.get(event),
+    unsubscribe(channel, callback) {
+        var cbs = this._subscribers.get(channel),
             filtered;
         if (cbs) {
             filtered = cbs.filter((cb) => {
                 return cb !== callback;
             });
         }
-        this._subscribers.set(event, filtered);
+        this._subscribers.set(channel, filtered);
     }
 
     /**
-     * @param event String
+     * @param channel String
      * @param data Rest
      */
-    publish(event, ...data) {
-        var cbs = this._subscribers.get(event);
+    publish(channel, ...data) {
+        var cbs = this._subscribers.get(channel);
         if (cbs) {
             cbs.forEach((cb) => {
                 cb.apply(null, data);

@@ -13,30 +13,30 @@ describe("PubSub", () => {
       assert(PubSub.singleton() === PubSub.singleton());
    });
 
-   it("executes all the registered callbacks when an event gets published", () => {
+   it("executes all the registered callbacks when an channel gets published", () => {
       var n = 0;
       var cb = () => {
          n++;
       };
-      ps.subscribe("ev_1", cb);
-      ps.subscribe("ev_1", cb);
-      ps.subscribe("ev_2", cb);
-      ps.publish("ev_1");
+      ps.subscribe("ch_1", cb);
+      ps.subscribe("ch_1", cb);
+      ps.subscribe("ch_2", cb);
+      ps.publish("ch_1");
       assert.equal(n, 2);
    });
    
-   it("unregisters a callback from a particular event when asked to", () => {
+   it("unregisters a callback from a particular channel when asked to", () => {
       var n = 0;
       var cb = () => {
          n++;
       };
-      ps.subscribe("ev_1", cb);
-      ps.subscribe("ev_1", cb);
-      ps.subscribe("ev_2", cb);
-      ps.unsubscribe("ev_1", cb);
-      ps.publish("ev_1");
+      ps.subscribe("ch_1", cb);
+      ps.subscribe("ch_1", cb);
+      ps.subscribe("ch_2", cb);
+      ps.unsubscribe("ch_1", cb);
+      ps.publish("ch_1");
       assert.equal(n, 0);
-      ps.publish("ev_2");
+      ps.publish("ch_2");
       assert.equal(n, 1);
    });
 });
