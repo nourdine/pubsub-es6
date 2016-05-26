@@ -6,31 +6,37 @@ describe("PubSub", () => {
    var ps;
 
    beforeEach(() => {
-      ps = PubSub.singleton();
+      ps = new PubSub();
    });
 
    it("has a singleton method that works", () => {
-      assert(ps === PubSub.singleton());
-      assert(ps !== new PubSub());
+      assert(PubSub.singleton() === PubSub.singleton());
    });
 
-   it("checks params when you subscribe", () => {
-      assert.throws(() => {
-         ps.subscribe(null, () => "");
-      });
-      assert.throws(() => {
-         ps.subscribe("event_name", null);
-      });
-   });
-
-   it("executes all the registered callbacks when publishing", () => {
+   it("executes all the registered callbacks when an event gets published", () => {
       var n = 0;
       var cb = () => {
          n++;
-      };      
-      ps.subscribe("ev", cb);
-      ps.subscribe("ev", cb);
-      ps.publish("ev");      
+      };
+      ps.subscribe("ev_1", cb);
+      ps.subscribe("ev_1", cb);
+      ps.subscribe("ev_2", cb);
+      ps.publish("ev_1");
       assert.equal(n, 2);
+   });
+   
+   it("unregisters a callback from a particular event when asked to", () => {
+      var n = 0;
+      var cb = () => {
+         n++;
+      };
+      ps.subscribe("ev_1", cb);
+      ps.subscribe("ev_1", cb);
+      ps.subscribe("ev_2", cb);
+      ps.unsubscribe("ev_1", cb);
+      ps.publish("ev_1");
+      assert.equal(n, 0);
+      ps.publish("ev_2");
+      assert.equal(n, 1);
    });
 });

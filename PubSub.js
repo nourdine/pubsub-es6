@@ -1,33 +1,53 @@
 let instance;
 
 class PubSub {
-    
+
+    /**
+     * @return PubSub
+     */
     static singleton() {
-        if (!instance) { 
+        if (!instance) {
             instance = new PubSub();
         }
         return instance;
     }
-    
+
     constructor() {
-        this.subscribers = new Map();
+        this._subscribers = new Map();
     }
-    
+
+    /**
+     * @param event String
+     * @param callback Function 
+     */
     subscribe(event, callback) {
-        if (typeof event !== "string") {
-            throw "event must be string";
+        if (!this._subscribers.get(event)) {
+            this._subscribers.set(event, []);
         }
-        if (typeof callback !== "function") {
-            throw "callback must be function";
-        }
-        if (!this.subscribers.get(event)) {
-            this.subscribers.set(event, []);
-        }
-        this.subscribers.get(event).push(callback);
+        this._subscribers.get(event).push(callback);
     }
-    
+
+    /**
+     * @param event String
+     * @param callback Function 
+     */
+    unsubscribe(event, callback) {
+        var cbs = this._subscribers.get(event),
+            filtered;
+        if (cbs) {
+            filtered = cbs.filter((cb) => {
+                return cb !== callback;
+            });
+        }
+        this._subscribers.set(event, filtered);
+    }
+
+    /**
+     * @param event String
+     * @param data Rest
+     */
     publish(event, ...data) {
-        var cbs = this.subscribers.get(event);
+        var cbs = this._subscribers.get(event);
         if (cbs) {
             cbs.forEach((cb) => {
                 cb.apply(null, data);
