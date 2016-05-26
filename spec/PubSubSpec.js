@@ -1,5 +1,5 @@
 const assert = require("assert");
-const PubSub = require("./../pubsub");
+const PubSub = require("./../PubSub");
 
 describe("PubSub", function() {
    
