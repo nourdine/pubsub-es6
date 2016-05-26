@@ -14,14 +14,25 @@ class PubSub {
     }
     
     subscribe(event, callback) {
+        if (typeof event !== "string") {
+            throw "event must be string";
+        }
+        if (typeof callback !== "function") {
+            throw "callback must be function";
+        }
         if (!this.subscribers.get(event)) {
             this.subscribers.set(event, []);
         }
         this.subscribers.get(event).push(callback);
     }
     
-    publish(event) {
-        
+    publish(event, ...data) {
+        var cbs = this.subscribers.get(event);
+        if (cbs) {
+            cbs.forEach((cb) => {
+                cb.apply(null, data);
+            });
+        }
     }
 }
 
