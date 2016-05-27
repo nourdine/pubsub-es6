@@ -5,6 +5,9 @@ This is a standard (classic, good old) publisher/subscriber utility that will le
 ### Get an instance
 
 ```js
+const PubSub = require("pubsub_es6");
+
+// `new` way
 var ps = new PubSub();
 // or
 var ps = PubSub.singleton();  
