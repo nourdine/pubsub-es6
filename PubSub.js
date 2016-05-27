@@ -78,7 +78,7 @@ class PubSub {
     /**
      * @param channel String
      */
-    purge(channel) {
+    flush(channel) {
         this._subscribers.delete(channel);
         this._oncers.delete(channel);
     }

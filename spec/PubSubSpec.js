@@ -1,5 +1,5 @@
 const assert = require("assert");
-const PubSub = require("./../PubSub");
+const PubSub = require("./../");
 
 describe("PubSub", () => {
 
@@ -64,11 +64,11 @@ describe("PubSub", () => {
       assert.equal(n, 1);
    });
    
-   it("can purge a channel", () => {
+   it("can flush a channel", () => {
       ps.subscribe("ch_1", cb);
       ps.subscribe("ch_2", cb);
       assert.equal(ps._subscribers.size, 2);
-      ps.purge("ch_1");
+      ps.flush("ch_1");
       ps.publish("ch_1");
       assert.equal(n, 0);
       ps.publish("ch_2");
