@@ -7,9 +7,9 @@ This is a standard (classic, good old) publisher/subscriber utility that will le
 ```js
 const PubSub = require("pubsub_es6");
 
-// `new` way
+// the `new` way
 var ps = new PubSub();
-// or
+// or...
 var ps = PubSub.singleton();  
 ```
 
@@ -19,7 +19,7 @@ var ps = PubSub.singleton();
 ps.subscribe("event_name", (arg1, arg2) => {
    console.log(arg1, arg2);
 });
-// or, if you prefer your callback to be executed once only (regardless of the number of times the event is published)
+// or, if you prefer your callback to be executed once only (regardless of the number of times the event is published)...
 ps.once("event_name", (arg1, arg2) => {
    console.log(arg1, arg2);
 });
