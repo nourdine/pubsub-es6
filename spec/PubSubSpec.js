@@ -18,7 +18,7 @@ describe("PubSub", () => {
       assert(PubSub.singleton() === PubSub.singleton());
    });
 
-   it("executes all and only the registered callbacks of a channel when that channel gets published", () => {
+   it("executes all and only the registered callbacks of an event when that event gets published", () => {
       ps.subscribe("ch_1", cb);
       ps.subscribe("ch_1", cb);
       ps.subscribe("ch_2", cb);
@@ -26,7 +26,7 @@ describe("PubSub", () => {
       assert.equal(n, 2);
    });
    
-   it("executes all and only the registered once callbacks of a channel when that channel gets published", () => {
+   it("executes all and only the registered once callbacks of an event when that event gets published", () => {
       ps.once("ch_1", cb);
       ps.once("ch_1", cb);
       ps.once("ch_2", cb);
@@ -42,7 +42,7 @@ describe("PubSub", () => {
       assert.equal(n, 1);   
    });
    
-   it("unregisters a callback from a particular channel when asked to", () => {
+   it("unregisters a callback from a particular event when asked to", () => {
       ps.subscribe("ch_1", cb);
       ps.subscribe("ch_1", cb);
       ps.subscribe("ch_2", cb);
@@ -53,7 +53,7 @@ describe("PubSub", () => {
       assert.equal(n, 1);
    });
    
-   it("unregisters a once callback from a particular channel when asked to", () => {
+   it("unregisters a once callback from a particular event when asked to", () => {
       ps.once("ch_1", cb);
       ps.once("ch_1", cb);
       ps.once("ch_2", cb);
@@ -64,7 +64,7 @@ describe("PubSub", () => {
       assert.equal(n, 1);
    });
    
-   it("can flush a channel", () => {
+   it("can flush an event", () => {
       ps.subscribe("ch_1", cb);
       ps.subscribe("ch_2", cb);
       assert.equal(ps._subscribers.size, 2);

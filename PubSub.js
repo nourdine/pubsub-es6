@@ -18,50 +18,50 @@ class PubSub {
     }
 
     /**
-     * @param channel String
+     * @param event String
      * @param callback Function 
      */
-    subscribe(channel, callback) {
-        this._subscribe(channel, callback, false);
+    subscribe(event, callback) {
+        this._subscribe(event, callback, false);
     }
 
     /**
-     * @param channel String
+     * @param event String
      * @param callback Function 
      */
-    once(channel, callback) {
-        this._subscribe(channel, callback, true);
+    once(event, callback) {
+        this._subscribe(event, callback, true);
     }
 
     /**
-     * @param channel String
+     * @param event String
      * @param callback Function 
      */
-    unsubscribe(channel, callback) {
-        var cbs = this._subscribers.get(channel),
-            oncers = this._oncers.get(channel),
+    unsubscribe(event, callback) {
+        var cbs = this._subscribers.get(event),
+            oncers = this._oncers.get(event),
             filtered;
         if (cbs) {
             filtered = cbs.filter((cb) => {
                 return cb !== callback;
             });
-            this._subscribers.set(channel, filtered);
+            this._subscribers.set(event, filtered);
         }
         if (oncers) {
             filtered = oncers.filter((cb) => {
                 return cb !== callback;
             });
-            this._oncers.set(channel, filtered);
+            this._oncers.set(event, filtered);
         }
     }
 
     /**
-     * @param channel String
+     * @param event String
      * @param data Rest
      */
-    publish(channel, ...data) {
-        var cbs = this._subscribers.get(channel),
-            oncers = this._oncers.get(channel);
+    publish(event, ...data) {
+        var cbs = this._subscribers.get(event),
+            oncers = this._oncers.get(event);
         if (cbs) {
             cbs.forEach((cb) => {
                 cb.apply(null, data);
@@ -71,24 +71,24 @@ class PubSub {
             oncers.forEach((cb) => {
                 cb.apply(null, data);
             });
-            this._oncers.delete(channel);
+            this._oncers.delete(event);
         }
     }
 
     /**
-     * @param channel String
+     * @param event String
      */
-    flush(channel) {
-        this._subscribers.delete(channel);
-        this._oncers.delete(channel);
+    flush(event) {
+        this._subscribers.delete(event);
+        this._oncers.delete(event);
     }
 
-    _subscribe(channel, callback, once) {
+    _subscribe(event, callback, once) {
         var subscribers = once ? this._oncers : this._subscribers;
-        if (!subscribers.get(channel)) {
-            subscribers.set(channel, []);
+        if (!subscribers.get(event)) {
+            subscribers.set(event, []);
         }
-        subscribers.get(channel).push(callback);
+        subscribers.get(event).push(callback);
     }
 }
 

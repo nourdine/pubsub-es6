@@ -16,7 +16,7 @@ var ps = PubSub.singleton();
 ps.subscribe("event_name", (arg1, arg2) => {
    console.log(arg1, arg2);
 });
-// or if you prefer you callback to be executed once only (regardless of the number of times the event is published)
+// or, if you prefer your callback to be executed once only (regardless of the number of times the event is published)
 ps.once("event_name", (arg1, arg2) => {
    console.log(arg1, arg2);
 });
@@ -41,7 +41,7 @@ ps.unregister("event_name", cb);
 ps.publish("event_name", "hello", "world!");
 ```
 
-### Flush a whole channel
+### Flush a whole event
 
 ```js
 ps.subscribe("event_name", (arg1, arg2) => {
