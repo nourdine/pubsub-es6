@@ -13,6 +13,7 @@ class PubSub {
     }
 
     constructor() {
+        this._oncers = new Map();
         this._subscribers = new Map();
     }
 
@@ -21,10 +22,15 @@ class PubSub {
      * @param callback Function 
      */
     subscribe(channel, callback) {
-        if (!this._subscribers.get(channel)) {
-            this._subscribers.set(channel, []);
-        }
-        this._subscribers.get(channel).push(callback);
+        this._subscribe(channel, callback, false);
+    }
+
+    /**
+     * @param channel String
+     * @param callback Function 
+     */
+    once(channel, callback) {
+        this._subscribe(channel, callback, true);
     }
 
     /**
@@ -33,13 +39,20 @@ class PubSub {
      */
     unsubscribe(channel, callback) {
         var cbs = this._subscribers.get(channel),
+            oncers = this._oncers.get(channel),
             filtered;
         if (cbs) {
             filtered = cbs.filter((cb) => {
                 return cb !== callback;
             });
+            this._subscribers.set(channel, filtered);
         }
-        this._subscribers.set(channel, filtered);
+        if (oncers) {
+            filtered = oncers.filter((cb) => {
+                return cb !== callback;
+            });
+            this._oncers.set(channel, filtered);
+        }
     }
 
     /**
@@ -47,11 +60,18 @@ class PubSub {
      * @param data Rest
      */
     publish(channel, ...data) {
-        var cbs = this._subscribers.get(channel);
+        var cbs = this._subscribers.get(channel),
+            oncers = this._oncers.get(channel);
         if (cbs) {
             cbs.forEach((cb) => {
                 cb.apply(null, data);
             });
+        }
+        if (oncers) {
+            oncers.forEach((cb) => {
+                cb.apply(null, data);
+            });
+            this._oncers.delete(channel);
         }
     }
 
@@ -60,6 +80,15 @@ class PubSub {
      */
     purge(channel) {
         this._subscribers.delete(channel);
+        this._oncers.delete(channel);
+    }
+
+    _subscribe(channel, callback, once) {
+        var subscribers = once ? this._oncers : this._subscribers;
+        if (!subscribers.get(channel)) {
+            subscribers.set(channel, []);
+        }
+        subscribers.get(channel).push(callback);
     }
 }
 
