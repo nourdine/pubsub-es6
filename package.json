@@ -1,0 +1,14 @@
+{
+  "name": "pubsub_es6",
+  "version": "0.0.0",
+  "description": "Classic pubsub class but for ES6 this time ;)",
+  "main": "PubSub.js",
+  "devDependencies": {
+    "mocha": "~2.5.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nourdine/pubsub_es6.git"
+  },
+  "author": "nourdine"
+}
