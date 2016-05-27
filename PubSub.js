@@ -54,6 +54,13 @@ class PubSub {
             });
         }
     }
+
+    /**
+     * @param channel String
+     */
+    purge(channel) {
+        this._subscribers.delete(channel);
+    }
 }
 
 module.exports = PubSub;

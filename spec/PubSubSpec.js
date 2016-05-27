@@ -13,7 +13,7 @@ describe("PubSub", () => {
       assert(PubSub.singleton() === PubSub.singleton());
    });
 
-   it("executes all the registered callbacks when an channel gets published", () => {
+   it("executes all and only the registered callbacks of a channel when that channel gets published", () => {
       var n = 0;
       var cb = () => {
          n++;
@@ -38,5 +38,21 @@ describe("PubSub", () => {
       assert.equal(n, 0);
       ps.publish("ch_2");
       assert.equal(n, 1);
+   });
+   
+   it("can purge a whole channel", () => {
+      var n = 0;
+      var cb = () => {
+         n++;
+      };
+      ps.subscribe("ch_1", cb);
+      ps.subscribe("ch_2", cb);
+      assert.equal(ps._subscribers.size, 2);
+      ps.purge("ch_1");
+      ps.publish("ch_1");
+      assert.equal(n, 0);
+      ps.publish("ch_2");
+      assert.equal(n, 1);
+      assert.equal(ps._subscribers.size, 1);
    });
 });
