@@ -6,6 +6,9 @@
   "devDependencies": {
     "mocha": "~2.5.3"
   },
+  "scripts": {
+    "test": "mocha ./spec/"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/nourdine/pubsub_es6.git"
