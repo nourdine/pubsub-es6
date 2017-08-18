@@ -77,7 +77,7 @@ class PubSub {
       if (cbs) {
          cbs.forEach((cb) => {
             cb.apply(null, data);
-         });filtered
+         });
       }
       if (oncers) {
          oncers.forEach((cb) => {
