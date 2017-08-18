@@ -2,7 +2,7 @@
   "name": "pubsub_es6",
   "version": "0.0.0",
   "description": "Classic pubsub class but for ES6 this time ;)",
-  "main": "PubSub.js",
+  "main": "pub-sub.js",
   "devDependencies": {
     "mocha": "~2.5.3"
   },
