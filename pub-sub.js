@@ -22,7 +22,13 @@ class PubSub {
     * @param callback Function 
     */
    subscribe(event, callback) {
-      this._subscribe(event, callback, false);
+      if (typeof event === "string") {
+         this._subscribe(event, callback, false);
+      } else if (Array.isArray(event)) {
+         event.forEach((e) => {
+            this._subscribe(e, callback, false);
+         });
+      }
    }
 
    /**
@@ -30,7 +36,13 @@ class PubSub {
     * @param callback Function 
     */
    once(event, callback) {
-      this._subscribe(event, callback, true);
+      if (typeof event === "string") {
+         this._subscribe(event, callback, true);
+      } else if (Array.isArray(event)) {
+         event.forEach((e) => {
+            this._subscribe(e, callback, true);
+         });
+      }
    }
 
    /**
@@ -65,7 +77,7 @@ class PubSub {
       if (cbs) {
          cbs.forEach((cb) => {
             cb.apply(null, data);
-         });
+         });filtered
       }
       if (oncers) {
          oncers.forEach((cb) => {
