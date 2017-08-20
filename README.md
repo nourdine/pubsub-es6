@@ -61,6 +61,12 @@ ps.publish("event_name", "hello", "world!");
 
 ```js
 ps.subscribe("event_name", (ev, arg1, arg2) => {
+   // first callback
+   console.log(arg1, arg2);
+});
+
+ps.subscribe("event_name", (ev, arg1, arg2) => {
+   // second callback
    console.log(arg1, arg2);
 });
 
