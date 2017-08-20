@@ -48,6 +48,7 @@ ps.publish("event_name", "hello", "world!");
 var cb = (ev, arg1, arg2) => {
    console.log(arg1, arg2);
 };
+
 ps.subscribe("event_name", cb);
 
 // but then, later on, you change your mind (it happens)
