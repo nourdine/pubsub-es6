@@ -1,4 +1,4 @@
-## Good old pubsub
+## PubSub module
 
 This is a standard (classic, good old) publisher/subscriber utility that will let you decouple your applications.
 
