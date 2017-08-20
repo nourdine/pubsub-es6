@@ -16,7 +16,7 @@ describe("PubSub", () => {
       assert(PubSub.singleton() === PubSub.singleton());
    });
 
-   it("thows an exception if the the event is not a string", () => {
+   it("thows an exception if the event is not a string", () => {
       assert.throws(function() {
          ps.subscribe(null, callback);
       });
@@ -25,7 +25,7 @@ describe("PubSub", () => {
       });
    });
 
-   it("thows an exception if the the callback is not a function", () => {
+   it("thows an exception if the callback is not a function", () => {
       assert.throws(function() {
          ps.once("event", null);
       });
