@@ -16,6 +16,24 @@ describe("PubSub", () => {
       assert(PubSub.singleton() === PubSub.singleton());
    });
 
+   it("thows an exception if the the event is not a string", () => {
+      assert.throws(function() {
+         ps.subscribe(null, callback);
+      });
+      assert.throws(function() {
+         ps.once(null, callback);
+      });
+   });
+
+   it("thows an exception if the the callback is not a function", () => {
+      assert.throws(function() {
+         ps.once("event", null);
+      });
+      assert.throws(function() {
+         ps.once(null, callback);
+      });
+   });
+
    it("executes all and only the registered callbacks of an event when that event gets published", () => {
       ps.subscribe("event_1", callback);
       ps.subscribe("event_1", callback);
@@ -30,18 +48,6 @@ describe("PubSub", () => {
       assert.equal(callback.getCall(1).args[1], 42);
    });
 
-   it("allows registering the same callback to multiple events", () => {
-      ps.subscribe(["event_1", "event_2"], callback);
-
-      ps.publish("event_1", 42);
-
-      assert.equal(callback.callCount, 1);
-
-      ps.publish("event_2", 42);
-
-      assert.equal(callback.callCount, 2);
-   });
-
    it("executes all and only the registered `once` callbacks of an event when that event gets published", () => {
       ps.once("event_1", callback);
       ps.once("event_1", callback);
@@ -54,18 +60,6 @@ describe("PubSub", () => {
       assert.equal(callback.getCall(0).args[1], 42);
 
       ps.publish("event_1", 42);
-
-      assert.equal(callback.callCount, 2);
-   });
-
-   it("allows registering the same `once` callback to multiple events", () => {
-      ps.once(["event_1", "event_2"], callback);
-
-      ps.publish("event_1", 42);
-
-      assert.equal(callback.callCount, 1);
-
-      ps.publish("event_2", 42);
 
       assert.equal(callback.callCount, 2);
    });

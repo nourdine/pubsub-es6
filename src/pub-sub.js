@@ -22,13 +22,8 @@ class PubSub {
     * @param callback Function 
     */
    subscribe(event, callback) {
-      if (typeof event === "string") {
-         this._subscribe(event, callback, false);
-      } else if (Array.isArray(event)) {
-         event.forEach((e) => {
-            this._subscribe(e, callback, false);
-         });
-      }
+      this._checkParams(event, callback);
+      this._subscribe(event, callback, false);
    }
 
    /**
@@ -36,13 +31,8 @@ class PubSub {
     * @param callback Function 
     */
    once(event, callback) {
-      if (typeof event === "string") {
-         this._subscribe(event, callback, true);
-      } else if (Array.isArray(event)) {
-         event.forEach((e) => {
-            this._subscribe(e, callback, true);
-         });
-      }
+      this._checkParams(event, callback);
+      this._subscribe(event, callback, true);
    }
 
    /**
@@ -98,10 +88,21 @@ class PubSub {
 
    _subscribe(event, callback, once) {
       var subscribers = once ? this._oncers : this._subscribers;
+
       if (!subscribers.get(event)) {
          subscribers.set(event, []);
       }
+
       subscribers.get(event).push(callback);
+   }
+
+   _checkParams(event, callback) {
+      if (typeof event !== "string") {
+         throw "The event name must be a string";
+      }
+      if (typeof callback !== "function") {
+         throw "The callback must be a function";
+      }
    }
 }
 
