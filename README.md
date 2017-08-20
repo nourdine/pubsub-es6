@@ -73,6 +73,6 @@ ps.subscribe("event_name", (ev, arg1, arg2) => {
 // but then, later on, you change your mind and want to reset the whole thing
 ps.flush("event_name");
 
-// no callback be invoked
+// no callback will be invoked
 ps.publish("event_name", "hello", "world!");
 ```
