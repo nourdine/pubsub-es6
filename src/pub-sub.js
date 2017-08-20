@@ -72,6 +72,7 @@ class PubSub {
     * @param data Rest
     */
    publish(event, ...data) {
+      data.unshift(event);
       var cbs = this._subscribers.get(event),
          oncers = this._oncers.get(event);
       if (cbs) {

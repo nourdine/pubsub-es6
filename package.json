@@ -4,7 +4,8 @@
   "description": "A pubsub class for ES6",
   "main": "src/pub-sub.js",
   "devDependencies": {
-    "mocha": "~2.5.3"
+    "mocha": "~2.5.3",
+    "sinon": "^3.2.1"
   },
   "scripts": {
     "test": "mocha ./spec/"
