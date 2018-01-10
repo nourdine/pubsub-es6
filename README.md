@@ -1,6 +1,6 @@
 ## PubSub
 
-This is a standard (classic, good old) publisher/subscriber utility that will let you decouple your applications.
+This is a standard (classic, good old) publisher/subscriber utility that will let you enforce and increment heavy decoupling in your applications.
 
 ### Get an instance
 
