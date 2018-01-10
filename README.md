@@ -2,6 +2,12 @@
 
 This is a standard (classic, good old) publisher/subscriber utility that will let you enforce and increment heavy decoupling in your applications.
 
+### Why
+
+A publisher/observer central hub is a foundamental component of an application that allows dispatching messages across a channel where multiple parts of the app itself are listening or sending messages.
+
+This allows the design to stay **fully decoupled**: any part `A` that wants to let some other part `B` know that something just happened, can simply throw a message in the air and if `B` is listening and is also interested in what happened, it will react accordingly. Otherwsie nothing will happen. `A` won't have to know about `B` and `B` can be removed at any time from the app and everythig will still work. This is decoupling in its purest form and allows for scalable application of arbitary complexities.
+
 ### Get an instance
 
 ```js
@@ -51,10 +57,10 @@ var cb = (ev, arg1, arg2) => {
 
 ps.subscribe("event_name", cb);
 
-// but then, later on, you change your mind (it happens)
+// but then, later on, you change your mind.. it happens ;)
 ps.unregister("event_name", cb);
 
-// cb won't be invoked
+// cb won't be invoked anymore
 ps.publish("event_name", "hello", "world!");
 ```
 
