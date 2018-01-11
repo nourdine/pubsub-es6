@@ -1,8 +1,8 @@
 ## PubSub
 
-This is a standard (classic, good old) publisher/subscriber utility that will let you enforce and increment heavy decoupling in your applications.
+This is a classic, good old publisher/subscriber utility that will let you enforce and increment heavy decoupling in your applications.
 
-### Why
+### Intro
 
 A _publisher/observer_ **central hub** is a foundamental component of an application that allows dispatching messages across a channel where multiple parts of the app itself are listening or sending messages.
 
