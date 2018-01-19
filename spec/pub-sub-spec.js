@@ -17,19 +17,19 @@ describe("PubSub", () => {
    });
 
    it("thows an exception if the event is not a string", () => {
-      assert.throws(function() {
+      assert.throws(function () {
          ps.subscribe(null, callback);
       });
-      assert.throws(function() {
+      assert.throws(function () {
          ps.once(null, callback);
       });
    });
 
    it("thows an exception if the callback is not a function", () => {
-      assert.throws(function() {
+      assert.throws(function () {
          ps.once("event", null);
       });
-      assert.throws(function() {
+      assert.throws(function () {
          ps.once(null, callback);
       });
    });
@@ -108,11 +108,13 @@ describe("PubSub", () => {
       assert.equal(callback.callCount, 1);
    });
 
-   it("can flush all callbacks associated to an event", () => {
+   it("can flush all callbacks registered with a certain event", () => {
       ps.subscribe("event_1", callback);
+      ps.once("event_1", callback);
       ps.subscribe("event_2", callback);
 
       assert.equal(ps._subscribers.size, 2);
+      assert.equal(ps._oncers.size, 1);
 
       ps.flush("event_1");
 
@@ -124,5 +126,23 @@ describe("PubSub", () => {
 
       assert.equal(callback.callCount, 1);
       assert.equal(ps._subscribers.size, 1);
+   });
+
+   it("can flush all callbacks registered with any event", () => {
+      ps.subscribe("event_1", callback);
+      ps.once("event_2", callback);
+
+      assert.equal(ps._subscribers.size, 1);
+      assert.equal(ps._oncers.size, 1);
+
+      ps.reset();
+
+      assert.equal(ps._subscribers.size, 0);
+      assert.equal(ps._oncers.size, 0);
+
+      ps.publish("event_1", 42);
+      ps.publish("event_2", 42);
+
+      assert.equal(callback.callCount, 0);
    });
 });

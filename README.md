@@ -68,21 +68,41 @@ ps.unregister("event_name", cb);
 ps.publish("event_name", "hello", "world!");
 ```
 
-### Flush a whole event
+### Flush a whole event and its callbacks
 
 ```js
 ps.subscribe("event_name", (ev, arg1, arg2) => {
-   // first callback
    console.log(arg1, arg2);
 });
 
-ps.subscribe("event_name", (ev, arg1, arg2) => {
-   // second callback
+ps.once("event_name", (ev, arg1, arg2) => {
    console.log(arg1, arg2);
 });
 
 // but then, later on, you change your mind and want to reset the whole thing
 ps.flush("event_name");
+
+// no callback will be invoked
+ps.publish("event_name", "hello", "world!");
+```
+
+### Reset the whole thing
+
+```js
+ps.subscribe("event_name_1", (ev, arg1, arg2) => {
+   console.log(arg1, arg2);
+});
+
+ps.once("event_name_1", (ev, arg1, arg2) => {
+   console.log(arg1, arg2);
+});
+
+ps.subscribe("event_name_2", (ev, arg1, arg2) => {
+   console.log(arg1, arg2);
+});
+
+// but then, later on, you decide to reset the whole thing and flush any callback ever registered with any event
+ps.reset();
 
 // no callback will be invoked
 ps.publish("event_name", "hello", "world!");

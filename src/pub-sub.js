@@ -79,11 +79,21 @@ class PubSub {
    }
 
    /**
+    * Remove all the callbacks registered with a certain event. 
+    *
     * @param event String
     */
    flush(event) {
       this._subscribers.delete(event);
       this._oncers.delete(event);
+   }
+
+   /**
+    * Remove all possible callbacks ever registered with any event.
+    */
+   reset() {
+      this._subscribers.clear();
+      this._oncers.clear();
    }
 
    _subscribe(event, callback, once) {
