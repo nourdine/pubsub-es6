@@ -35,15 +35,6 @@ ps.subscribe("event_name", (ev, arg1, arg2) => {
 ps.once("event_name", (ev, arg1, arg2) => {
    console.log(arg1, arg2);
 });
-
-// and finally you can even register the same callback to multiple events
-ps.subscribe(["event_name", "another_event_name"], (ev, arg1, arg2) => {
-   console.log(arg1, arg2);
-});
-
-ps.once(["event_name", "another_event_name"], (ev, arg1, arg2) => {
-   console.log(arg1, arg2);
-});
 ```
 
 ### Publish events
