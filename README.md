@@ -98,3 +98,10 @@ ps.reset();
 // no callback will be invoked
 ps.publish("event_name", "hello", "world!");
 ```
+
+### How to run Unit Tests ###
+
+```cmd
+npm i
+npm t
+```
