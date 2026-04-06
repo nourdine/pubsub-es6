@@ -1,4 +1,5 @@
-## PubSub
+pubsub-es6
+==========
 
 This is a classic, good old (but gold) publisher/subscriber utility that will let you enforce heavy decoupling in your applications.
 
