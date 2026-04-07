@@ -15,13 +15,13 @@ This pattern represents decoupling in its purest form and allows for scalable ap
 ### Get an instance
 
 ```js
-const PubSub = require("pubsub_es6");
+const LePubSub = require("lepubsub").default;
 
 // the `new` way
-var ps = new PubSub();
+var ps = new LePubSub();
 
 // or...
-var ps = PubSub.singleton();  
+var ps = LePubSub.singleton();
 ```
 
 ### Register callbacks

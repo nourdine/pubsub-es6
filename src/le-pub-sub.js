@@ -137,21 +137,17 @@ class LePubSub {
       subscribers.get(event).add(callback);
    }
 
-   #notify(event, data, async) {
-
+   #notify(event, data, async) {      
       data = [event, ...data];
-
       var cbs = this.#subscribers.get(event),
          oncers = this.#oncers.get(event);
-
+         
       const exec = () => {
-
          if (cbs) {
             for (let cb of cbs) {
                cb.apply(null, data);
             }
          }
-
          if (oncers) {
             for (let cb of oncers) {
                cb.apply(null, data);
