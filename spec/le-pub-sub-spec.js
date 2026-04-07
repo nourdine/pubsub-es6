@@ -27,7 +27,7 @@ describe("LePubSub", () => {
       });
    });
 
-   it("Throws an exception if the callback when want to register is not a function", () => {
+   it("Throws an exception if the callback we want to register is not a function", () => {
       assert.throws(function () {
          ps.once("event", null);
       });
