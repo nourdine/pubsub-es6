@@ -36,7 +36,7 @@ describe("LePubSub", () => {
       });
    });
 
-   it("Allows a callback to be registered only once to a certain event (normal cbs are stored in a Set)", () => {
+   it("Allows callbacks to be registered only once to a certain event (normal cbs are stored in a Set)", () => {
       ps.subscribe("event_1", callback);
       ps.subscribe("event_1", callback);
 
@@ -60,7 +60,7 @@ describe("LePubSub", () => {
       assert.equal(callback2.getCall(0).args[1], 42);
    });
 
-   it("Allows a callback to be ONCEREGISTERED only once to a certain event (once cbs are stored in a Set)", () => {
+   it("Allows callbacks to be ONCEREGISTERED only once to a certain event (once cbs are stored in a Set)", () => {
       ps.once("event_1", callback);
       ps.once("event_1", callback);
 
@@ -84,7 +84,7 @@ describe("LePubSub", () => {
       assert.equal(callback2.getCall(0).args[1], 42);
    });
 
-   it("Executes the registered `once` callbacks only once (you don't say)", () => {
+   it("Executes the registered `once` callbacks only once [you don't say! 😄]", () => {
       ps.once("event_1", callback);
       ps.once("event_1", callback2);
 
@@ -99,7 +99,22 @@ describe("LePubSub", () => {
       assert.equal(callback2.callCount, 1);
    });
 
-   it("Allow you to unregister a callback from a particular event", () => {
+   it("Can asynchronously execute callbacks of an event when that event gets published", (done) => {
+      ps.subscribe("event_1", callback);
+      ps.subscribe("event_2", callback);
+      ps.publishAsync("event_1", 42);
+
+      const tests = () => {         
+         assert.equal(callback.callCount, 1);
+         assert.equal(callback.getCall(0).args[0], "event_1");
+         assert.equal(callback.getCall(0).args[1], 42);
+         done();
+      }
+
+      setTimeout(tests, 0);
+   });
+
+   it("Lets you unregister a callback from a particular event", () => {
       ps.subscribe("event_1", callback);
       ps.subscribe("event_2", callback);
 
@@ -114,7 +129,7 @@ describe("LePubSub", () => {
       assert.equal(callback.callCount, 1);
    });
 
-   it("Allows you to unregister a `once` callback from a particular event", () => {
+   it("Lets you unregister a `once` callback from a particular event", () => {
       ps.once("event_1", callback);
       ps.once("event_2", callback);
 
