@@ -31,7 +31,7 @@ ps.subscribe("event_name", (ev, arg1, arg2) => {
    console.log(arg1, arg2);
 });
 
-// or, if you prefer your callback to be executed only once, and regardless of the number of times the event will br published...
+// or, if you prefer your callback to be executed only once, and regardless of the number of times the event will be published...
 ps.once("event_name", (ev, arg1, arg2) => {
    console.log(arg1, arg2);
 });
