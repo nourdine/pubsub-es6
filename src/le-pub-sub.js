@@ -21,7 +21,7 @@ class LePubSub {
    }
 
    /**
-    * Count the number of subscribers (callbacks) registered with a certain event.
+    * Count the number of subscribers (callbacks) registered to a certain event.
     * 
     * @param {String} event 
     * @returns {Number}
@@ -32,7 +32,7 @@ class LePubSub {
    }
 
    /**
-    * Count the number of oncers (callbacks) registered with a certain event.
+    * Count the number of oncers (callbacks) registered to a certain event.
     * 
     * @param {String} event 
     * @returns {Number}
@@ -43,7 +43,7 @@ class LePubSub {
    }
 
    /**
-    * Register a callback with a certain event.
+    * Register a callback to a certain event.
     * 
     * @param {String} event
     * @param {Function} callback
@@ -54,7 +54,7 @@ class LePubSub {
    }
 
    /**
-    * Register a callback with a certain event.
+    * Register a callback to a certain event.
     * The callback will only be executed at the first event issue.
     * 
     * @param {String} event
@@ -103,7 +103,7 @@ class LePubSub {
    }
 
    /**
-    * Remove all the callbacks registered with a certain event. 
+    * Remove all the callbacks registered to a certain event. 
     *
     * @param {String} event
     */
@@ -113,7 +113,7 @@ class LePubSub {
    }
 
    /**
-    * Remove any possible callback ever registered with any event. Total flush!
+    * Remove any possible callback ever registered to any event. Total flush!
     */
    reset() {
       this.#subscribers.clear();
@@ -141,7 +141,7 @@ class LePubSub {
       data = [event, ...data];
       var cbs = this.#subscribers.get(event),
          oncers = this.#oncers.get(event);
-         
+
       const exec = () => {
          if (cbs) {
             for (let cb of cbs) {
