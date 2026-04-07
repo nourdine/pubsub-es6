@@ -36,7 +36,7 @@ describe("LePubSub", () => {
       });
    });
 
-   it("Allows a callback to be registered only once with a certain event (normal cbs are stored in a Set)", () => {
+   it("Allows a callback to be registered only once to a certain event (normal cbs are stored in a Set)", () => {
       ps.subscribe("event_1", callback);
       ps.subscribe("event_1", callback);
 
@@ -60,7 +60,7 @@ describe("LePubSub", () => {
       assert.equal(callback2.getCall(0).args[1], 42);
    });
 
-   it("Allows a callback to be ONCEREGISTERED only once with a certain event (once cbs are stored in a Set)", () => {
+   it("Allows a callback to be ONCEREGISTERED only once to a certain event (once cbs are stored in a Set)", () => {
       ps.once("event_1", callback);
       ps.once("event_1", callback);
 
@@ -129,7 +129,7 @@ describe("LePubSub", () => {
       assert.equal(callback.callCount, 1);
    });
 
-   it("Lets you flush all callbacks registered with a certain event", () => {
+   it("Lets you flush all callbacks registered to a certain event", () => {
       ps.subscribe("event_1", callback);
       ps.subscribe("event_2", callback);
       ps.once("event_1", callback);
@@ -154,7 +154,7 @@ describe("LePubSub", () => {
       assert.equal(ps.countSubscribers("event_2"), 1);
    });
 
-   it("Lets you flush all callbacks registered with every event", () => {
+   it("Lets you flush all callbacks registered to any event", () => {
       ps.subscribe("event_1", callback);
       ps.once("event_2", callback);
 
