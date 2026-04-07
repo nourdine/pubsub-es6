@@ -31,7 +31,7 @@ ps.subscribe("event_name", (ev, arg1, arg2) => {
    console.log(arg1, arg2);
 });
 
-// or, if you prefer your callback to be executed once only (regardless of the number of times the event is published)...
+// or, if you prefer your callback to be executed only once, and regardless of the number of times the event will br published...
 ps.once("event_name", (ev, arg1, arg2) => {
    console.log(arg1, arg2);
 });
@@ -104,7 +104,7 @@ ps.publish("event_name_1", "hello", "world!");
 ps.publish("event_name_2", "hello", "world!");
 ```
 
-### How to run Unit Tests ###
+### Run Tests ###
 
 ```cmd
 npm i
