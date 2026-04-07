@@ -40,7 +40,11 @@ ps.once("event_name", (ev, arg1, arg2) => {
 ### Publish events
 
 ```js
+// callbacks are executed in the current tick
 ps.publish("event_name", "hello", "world!");
+
+// callbacks are executed in a non-blocking manner
+ps.publishAsync("event_name", "hello", "world!");
 ```
 
 ### Unregister a callback
