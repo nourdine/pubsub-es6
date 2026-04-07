@@ -1,8 +1,8 @@
 {
-  "name": "pubsub-es6",
+  "name": "lepubsub",
   "version": "0.0.0",
-  "description": "A pubsub class for ES6",
-  "main": "src/pub-sub.js",
+  "description": "A Publisher/Subscriber for the masses",
+  "main": "src/le-pub-sub.js",
   "devDependencies": {
     "mocha": "^11.7.5",
     "sinon": "^21.0.3"
