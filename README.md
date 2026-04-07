@@ -1,7 +1,7 @@
 lepubsub
 ==========
 
-LePubSub is a classic, good old (but gold!) publisher/subscriber utility that will allow you to enforce heavy decoupling in your applications.
+**LePubSub** is a classic, good old (but gold!) publisher/subscriber utility that will allow you to enforce heavy decoupling in your applications.
 
 ### Intro
 
