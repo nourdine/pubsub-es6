@@ -1,11 +1,11 @@
 pubsub-es6
 ==========
 
-This is a classic, good old (but gold) publisher/subscriber utility that will let you enforce heavy decoupling in your applications.
+This is a classic, good old (but gold!) publisher/subscriber utility that will allow you to enforce heavy decoupling in your applications.
 
 ### Intro
 
-A _publisher/observer_ **central hub** is an utility which allows publishing/observing messages (events). Various components can simultaneously use such central hub for the following two reasons:
+A _publisher/observer_ **central hub** is a utility which can be simultaneously used by various components in the same ecosystem for the following two reasons:
 
    1. to keep themselves up-to-date about facts going on in the application
    2. to publish events so that other components, if interested, can adjust accordingly
