@@ -137,21 +137,23 @@ class LePubSub {
       subscribers.get(event).add(callback);
    }
 
-   #notify(event, data, async) {      
+   #notify(event, data, async) {
       data = [event, ...data];
-      var cbs = this.#subscribers.get(event),
+      var subscribers = this.#subscribers.get(event),
          oncers = this.#oncers.get(event);
 
       const exec = () => {
-         if (cbs) {
-            for (let cb of cbs) {
-               cb.apply(null, data);
-            }
+         if (subscribers) {
+            [...subscribers] // array containing the elements of the set (snapshot)
+               .forEach((subscriber) => {
+                  subscriber.apply(null, data);
+               });
          }
          if (oncers) {
-            for (let cb of oncers) {
-               cb.apply(null, data);
-            }
+            [...oncers] // array containing the elements of the set (snapshot)
+               .forEach((oncer) => {
+                  oncer.apply(null, data);
+               });
             this.#oncers.delete(event);
          }
       }
