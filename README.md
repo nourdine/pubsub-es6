@@ -74,7 +74,7 @@ ps.once("event_name", (ev, arg1, arg2) => {
    console.log(arg1, arg2);
 });
 
-// but then, later on, you change your mind and want to reset the whole thing
+// but then, later on, you change your mind and want to flush all callbacks (oncers and normal ones) of a centain event
 ps.flush("event_name");
 
 // no callback will be invoked
@@ -100,7 +100,7 @@ ps.once("event_name_2", (ev, arg1, arg2) => {
    console.log(arg1, arg2);
 });
 
-// but then, later on, you decide to reset the whole thing and flush every callback ever registered to any event
+// but then, later on, you decide to reset the whole thing and flush every callback ever registered to any event, ever!
 ps.reset();
 
 // no callback will be invoked
