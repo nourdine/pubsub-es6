@@ -74,7 +74,7 @@ ps.once("event_name", (ev, arg1, arg2) => {
    console.log(arg1, arg2);
 });
 
-// but then, later on, you change your mind and want to flush all callbacks (oncers and normal ones) of a centain event
+// but then, later on, you change your mind and want to flush all callbacks (oncers and normal ones) of a certain event
 ps.flush("event_name");
 
 // no callback will be invoked
