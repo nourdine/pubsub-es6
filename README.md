@@ -36,7 +36,7 @@ ps.once("event_name", (ev, arg1, arg2, arg3) => {
    console.log(arg1, arg2, arg3);
 });
 
-// ...finally, you can register a callback which will be executed every time the event is published with params that are different from the ones passed the last time.
+// finally, you can register a callback which will be executed every time the event is published with params that are different from the ones passed the last time.
 // The registration can be done so that only certain params are taken into consideration and ANY or ALL of them have actually changed.
 ps.subscribeToDiff("event_name",
    "any|all", // ANY or ALL the selected params will have to change for the callback to be executed
