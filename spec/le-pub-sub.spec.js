@@ -148,6 +148,30 @@ describe("LePubSub", () => {
       assert.equal(callback.callCount, 3);
    });
 
+   it("Does not execute a registered callback when the only changed parameter is not among the selected ones (ANY operator)", () => {
+      ps.subscribeToDiff("event_1", "any", (a, b, c) => {
+         return [a, c];
+      }, callback);
+
+      ps.publish("event_1", 1, 2, 3); // params get registered as execution actually takes place
+      assert.equal(callback.callCount, 1);
+
+      ps.publish("event_1", 1, 100, 3);
+      assert.equal(callback.callCount, 1);
+   });
+
+   it("Does not execute a registered callback when the only changed parameter is not among the selected ones (ALL operator)", () => {
+      ps.subscribeToDiff("event_1", "all", (a, b, c) => {
+         return [a, c];
+      }, callback);
+
+      ps.publish("event_1", 1, 2, 3); // params get registered as execution actually takes place
+      assert.equal(callback.callCount, 1);
+
+      ps.publish("event_1", 1, 100, 3);
+      assert.equal(callback.callCount, 1);
+   });
+
    it("Allows callbacks to be ONCEREGISTERED only once to a certain event (once cbs are stored in a Set)", () => {
       ps.once("event_1", callback);
       ps.once("event_1", callback);
