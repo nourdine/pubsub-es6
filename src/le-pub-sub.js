@@ -54,6 +54,38 @@ class LePubSub {
    }
 
    /**
+    * Register a callback to a certain event which will only be executed if the passed params has changed from the previous execution.
+    * 
+    * @param {String} event 
+    * @param {Function} selector A function that selects which params should be compared with the ones provided in the previous execution
+    * @param {String} operator The operator ("any" OR "all") to use in oder to evaluate the two sets of values (the current ones and the ones from the previous execution)
+    * @param {Function} callback
+    * @returns {Function} The closure wrapping the original callback. To be used to unregister from the event.
+    */
+   subscribeToDiff(event, operator, selector, callback) {
+      var previous;
+
+      if (["any", "all"].indexOf(operator) == -1) {
+         throw new Error("Invalid operator. Only `any` and `all` are permitted.");
+      }
+
+      const comparator = operator == "any" ? anyChanged : allChanged;
+
+      const f = (...args) => {
+         const payload = args.slice(1);
+         const selected = selector(...payload);
+
+         if (comparator(selected, previous)) {
+            previous = selected;
+            callback(...selected);
+         }
+      }
+
+      this.subscribe(event, f);
+      return f;
+   }
+
+   /**
     * Register a callback to a certain event.
     * The callback will only be executed at the first event issue.
     * 
@@ -161,5 +193,31 @@ class LePubSub {
       async ? setTimeout(exec, 1) : exec()
    }
 }
+
+function allChanged(selected, previous) {
+   if (!previous) return true;
+   if (selected.length !== previous.length) return true;
+
+   for (let i = 0; i < selected.length; i++) {
+      if (selected[i] === previous[i]) {
+         return false;
+      }
+   }
+
+   return true;
+}
+
+function anyChanged(a, b) {
+   if (a === b) return false;
+   if (!a || !b) return true;
+   if (a.length !== b.length) return true;
+
+   for (let i = 0; i < a.length; i++) {
+      if (a[i] !== b[i]) return true;
+   }
+
+   return false;
+}
+
 
 export default LePubSub;

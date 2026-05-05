@@ -27,13 +27,24 @@ var ps = LePubSub.singleton();
 ### Register callbacks
 
 ```js
-ps.subscribe("event_name", (ev, arg1, arg2) => {
-   console.log(arg1, arg2);
+ps.subscribe("event_name", (ev, arg1, arg2, arg3) => {
+   console.log(arg1, arg2, arg3);
 });
 
-// or, if you prefer your callback to be executed only once, and regardless of the number of times the event will be published...
-ps.once("event_name", (ev, arg1, arg2) => {
-   console.log(arg1, arg2);
+// or, if you prefer your callback to be executed only once...
+ps.once("event_name", (ev, arg1, arg2, arg3) => {
+   console.log(arg1, arg2, arg3);
+});
+
+// ...finally, you can register a callback which will be executed every time the event is published with params that are different from the ones passed the last time.
+// The registration can be done so that only certain params are taken into consideration and ANY or ALL of them have actually changed.
+ps.subscribeToDiff("event_name",
+   "any|all", // ANY or ALL the selected params will have to change for the callback to be executed
+   (arg1, arg2, arg3) => {
+      return [arg1, arg2]; // the comparison will be performed only on `arg1` and `arg2`
+   },
+   (ev, arg1, arg2) => {
+      console.log(arg1);
 });
 ```
 
@@ -41,10 +52,10 @@ ps.once("event_name", (ev, arg1, arg2) => {
 
 ```js
 // callbacks are executed in the current tick
-ps.publish("event_name", "hello", "world!");
+ps.publish("event_name", "hello", "world", "!");
 
 // callbacks are executed in a non-blocking manner
-ps.publishAsync("event_name", "hello", "world!");
+ps.publishAsync("event_name", "hello", "world", "!");
 ```
 
 ### Unregister a callback
