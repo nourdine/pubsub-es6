@@ -219,5 +219,4 @@ function anyChanged(a, b) {
    return false;
 }
 
-
 export default LePubSub;
