@@ -44,8 +44,8 @@ ps.subscribeToDiff("event_name",
       return [arg1, arg2]; // the comparison will be performed only on `arg1` and `arg2`
    },
    (ev, arg1, arg2) => {
-      console.log(arg1);
-});
+      console.log(arg1, arg2);
+   });
 ```
 
 ### Publish events
