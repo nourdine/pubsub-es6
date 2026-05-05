@@ -109,7 +109,7 @@ describe("LePubSub", () => {
       assert.equal(callback.callCount, 3);
    });
 
-   it("Executes a registered callback only when ANY parameters passed to it have changed from the previous execution (single selected param)", () => {
+   it("Executes a registered callback only when ANY parameter passed to it have changed from the previous execution (single selected param)", () => {
       ps.subscribeToDiff("event_1", "any", (a, b) => {
          return [a];
       }, callback);
