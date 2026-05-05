@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "description": "A Publisher/Subscriber for the masses",
   "main": "src/le-pub-sub.js",
+  "type": "module",
   "devDependencies": {
-    "mocha": "^11.7.5",
     "sinon": "^21.0.3"
   },
   "scripts": {
-    "test": "mocha ./spec/"
+    "test": "node --test ./spec/*.spec.js"
   },
   "author": "nourdine"
 }

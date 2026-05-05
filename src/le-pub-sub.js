@@ -66,7 +66,7 @@ class LePubSub {
    }
 
    /**
-    * Unsuscribe a callback from a certain vent.
+    * Unsubscribe a callback from a certain event.
     * 
     * @param {String} event
     * @param {Function} callback
